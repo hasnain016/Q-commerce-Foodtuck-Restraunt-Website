@@ -37,7 +37,7 @@ export default function Eight () {
               className="rounded-full border-4 border-white"
             />
           </div>
-          <div className="text-6xl text-amber-500 mb-4">"</div>
+          <div className="text-6xl text-amber-500 mb-4"></div>
           <p className="text-gray-600 mb-6">{testimonials[currentTestimonial].quote}</p>
           <div className="flex justify-center mb-4">
             {[...Array(5)].map((_, i) => (
