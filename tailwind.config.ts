@@ -11,6 +11,7 @@ export default {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        sky:"rgba(224, 223, 223, 1)"
       },
     },
   },
