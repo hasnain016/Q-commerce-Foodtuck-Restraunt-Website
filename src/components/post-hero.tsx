@@ -1,5 +1,5 @@
 
-
+import Image from "next/image";
 
 
 import React from "react";
@@ -18,7 +18,7 @@ const Third = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           
           <div className="relative group">
-            <img
+            <Image width={300} height={500}
               src="/column1.jpg"
               alt="Fast Food Dish"
               className="w-full rounded-lg shadow-lg object-cover"
@@ -35,7 +35,7 @@ const Third = () => {
 
           
           <div className="h-40">
-            <img
+            <Image width={300} height={500}
               src="/column2.jpg"
               alt="Burger"
               className="w-full rounded-lg shadow-lg object-cover"
@@ -44,7 +44,7 @@ const Third = () => {
 
           
           <div>
-            <img
+            <Image width={300} height={500}
               src="/column3.jpg"
               alt="Salad"
               className="w-full rounded-lg shadow-lg object-cover"
@@ -53,7 +53,7 @@ const Third = () => {
 
         
           <div>
-            <img
+            <Image width={300} height={500}
               src="/column4.jpg"
               alt="Donuts"
               className="w-full rounded-lg shadow-lg object-cover"

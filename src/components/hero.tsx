@@ -1,5 +1,5 @@
 
-
+import Image from "next/image";
 
            
 
@@ -42,18 +42,18 @@ const Second = () => {
 
         {/* Right Content */}
         <div className="grid grid-cols-2 gap-4">
-          <img
+          <Image width={300} height={300}
             src="/new.jpg"
             alt="Food Item 1"
             className="rounded-lg shadow-lg object-cover"
           />
           <div className="grid grid-rows-2 gap-4">
-            <img
+            <Image width={300} height={300}
               src="/solder1.jpg"
               alt="Food Item 2"
               className="rounded-lg shadow-lg object-cover"
             />
-            <img
+            <Image width={300} height={300}
               src="/solder2.jpg"
               alt="Food Item 3"
               className="rounded-lg h-40 w-64 shadow-lg object-cover"

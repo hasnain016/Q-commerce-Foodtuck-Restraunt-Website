@@ -1,7 +1,7 @@
 
 
 
-
+import Image from "next/image";
 import React from "react";
 
 import Link from "next/link";
@@ -35,7 +35,7 @@ function Second() {
 
       {/* Image */}
       <div className="mt-[30px] ml-24 md:mt-0 md:w-[50%] flex justify-center">
-        <img
+        <Image width={500} height={500}
           src="/Image.jpg"
           alt="Hero Image"
           className="w-[90%] md:w-auto max-w-[590px] md:max-w-full"

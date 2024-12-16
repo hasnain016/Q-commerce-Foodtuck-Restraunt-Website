@@ -1,6 +1,6 @@
 
 
-
+import Image from "next/image";
 
 
 import React from "react";
@@ -12,33 +12,33 @@ const Four = () => {
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12">
         {/* Left Image Section */}
         <div className="grid grid-cols-2 mt-60 grid-rows-3 gap-4">
-          <img
-            src="row1.jpg"
+          <Image width={500} height={500}
+            src="/row1.jpg"
             alt="taco"
             className="rounded-lg object-cover w-full h-60 row-span-2"
           />
-          <img
-            src="row2.jpg"
+          <Image width={300} height={300}
+            src="/row2.jpg"
             alt="small"
             className="rounded-lg object-cover mt-20 w-40 h-40"
           />
-          <img
-            src="row5.jpg"
+          <Image width={300} height={300}
+            src="/row5.jpg"
             alt="Fast Food"
             className="rounded-lg object-cover ml-20 w-20 h-20"
           />
-          <img
-            src="row4.jpg"
+          <Image width={300} height={300}
+            src="/row4.jpg"
             alt="Chicken"
             className="rounded-lg object-cover w-40 -mt-64 h-52"
           />
-          <img
-            src="row3.jpg"
+          <Image width={300} height={300}
+            src="/row3.jpg"
             alt="Dinner"
             className="rounded-lg object-cover -ml-24 -mt-64 w-40 h-40"
           />
-                    <img
-            src="row6.jpg"
+                    <Image width={300} height={300}
+            src="/row6.jpg"
             alt="Fast Food"
             className="rounded-lg object-cover -mt-[410px] ml-[357px] w-20 h-20"
           />

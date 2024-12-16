@@ -25,10 +25,10 @@ const Navbar = () => {
           <Link href="/" className="hover:text-red-600">Home</Link>
           <Link href="/menu" className="hover:text-red-600">Menu</Link>
           <Link href="/blog" className="hover:text-red-600">Blog</Link>
-          <Link href="/checkout" className="hover:text-red-600">Pages</Link>
-          <Link href="/shop" className="hover:text-red-600">About</Link>
+          <Link href="/chef" className="hover:text-red-600">Pages</Link>
+          <Link href="/about" className="hover:text-red-600">About</Link>
           <Link href="/shop" className="hover:text-red-600">Shop</Link>
-          <Link href="/contact" className="hover:text-red-600">Contact</Link>
+          <Link href="/sign" className="hover:text-red-600">Contact</Link>
         </div>
 
         {/* Right Section (Search, Cart, User) */}
@@ -67,7 +67,7 @@ const Navbar = () => {
             <Link href="/checkout" className="block hover:text-orange-500">Pages</Link>
             <Link href="/shop" className="block hover:text-orange-500">About</Link>
             <Link href="/shop" className="block hover:text-orange-500">Shop</Link>
-            <Link href="/contact" className="block hover:text-orange-500">Contact</Link>
+            <Link href="/sign" className="block hover:text-orange-500">Contact</Link>
             <div className="mt-4 relative">
               <input
                 type="text"
