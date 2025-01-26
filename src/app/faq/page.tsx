@@ -14,11 +14,11 @@ export default function Faq(){
          <h1 className="text-white  text-5xl font-bold">FAQ Page</h1>
         </div>
                 <div className="mt-10">
-                    <h1 className="text-center text-5xl font-bold">Questions Look Here</h1>
+                    <h1 className="text-center text-5xl font-bold  ">Questions Look Here</h1>
                     <p className="text-center mt-5">Lorem Ipsum is simply dummy text of the printing and typesitting industry.Lorem ipsum has been the</p>
                 </div>
             </section>
-            <section className="flex mt-10">
+            <section className="flex  mt-10">
                 <div className="w-1/2 h-40 border 2 solid bg-orange-50 ml-5 mt-5">
                 <h1 className="font-bold ml-7 mt-5 text-xl">How we serve food ?</h1>
                 <p className="ml-7 text-gray-500 mt-3">Lorem ipsum dolor sit amet consectetur adipisicing elit.Nisi quis modi ullam</p>
