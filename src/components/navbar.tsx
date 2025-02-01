@@ -32,6 +32,7 @@ const Navbar = () => {
           <Link href="/about" className="hover:text-red-600">About</Link>
           <Link href="/shop" className="hover:text-red-600">Shop</Link>
           <Link href="/sign" className="hover:text-red-600">Contact</Link>
+          <Link href="/cart">Cart </Link>
         </div>
 
         {/* Right Section (Search, Cart, User) */}
@@ -44,7 +45,7 @@ const Navbar = () => {
             />
             <Search className="w-4 h-4 text-gray-400 absolute right-3 top-1/2 transform -translate-y-1/2" />
           </div>
-          <Link href="/cart" className="text-white hover:text-yellow-300 ml-2">
+         <Link href="/cart" className="text-white hover:text-yellow-300 ml-2">
             <ShoppingCart className="w-6 h-6 cursor-pointer" />
           </Link>
           <Link href="/signup" className="text-white hover:text-yellow-300 ml-2">

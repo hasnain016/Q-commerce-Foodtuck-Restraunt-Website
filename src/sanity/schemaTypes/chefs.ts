@@ -1,8 +1,8 @@
-import { title } from "process";
 
 
 
-export default {
+
+  export default {
     name: 'chef',
     type: 'document',
     title: 'Chef',

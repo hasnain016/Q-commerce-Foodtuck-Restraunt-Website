@@ -1,132 +1,151 @@
-import Image from "next/image"
-import Link from "next/link"
-import { client } from "@/sanity/lib/client"
-import { urlFor } from "@/sanity/lib/image"
+"use client"; // Ensure interactivity in Next.js App Router
 
+import { useState, useEffect } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { client } from "@/sanity/lib/client";
+import { urlFor } from "@/sanity/lib/image";
 
-export default async function Shop(){
+// Define the product type
+export interface Product {
+  image: string;
+  name: string;
+  originalPrice: number;
+  price: number;
+  currentslug: string;
+}
 
-   const  data= await client.fetch(`
-  *[_type=="food"]{
-    image,
-    name,
-    originalPrice,
-    price,
-    // 'slug': slug.current,
-    "currentslug":slug.current
-}`
-    )
+export default function Shop() {
+  const [searchQuery, setSearchQuery] = useState<string>("");
+  const [data, setData] = useState<Product[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [wishlist, setWishlist] = useState<Product[]>([]);
 
+  // Load wishlist from localStorage safely on the client side
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const savedWishlist = localStorage.getItem("wishlist");
+      if (savedWishlist) {
+        setWishlist(JSON.parse(savedWishlist));
+      }
+    }
+  }, []);
 
-    return(
-        
-        <main className="">
+  // Fetch data on the client side
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const result: Product[] = await client.fetch(`
+          *[_type=="food"]{
+            image,
+            name,
+            originalPrice,
+            price,
+            "currentslug": slug.current
+          }
+        `);
+        setData(result);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchData();
+  }, []);
 
-             <div
+  // Filter products based on search input
+  const filteredProducts = data.filter((product) =>
+    product.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  // Toggle product in wishlist
+  const toggleWishlist = (product: Product) => {
+    let updatedWishlist;
+    if (wishlist.some((item) => item.currentslug === product.currentslug)) {
+      updatedWishlist = wishlist.filter((item) => item.currentslug !== product.currentslug);
+    } else {
+      updatedWishlist = [...wishlist, product];
+    }
+    setWishlist(updatedWishlist);
+
+    // Update localStorage only if window is available
+    if (typeof window !== "undefined") {
+      localStorage.setItem("wishlist", JSON.stringify(updatedWishlist));
+    }
+  };
+
+  return (
+    <main>
+      {/* Hero Section */}
+      <div
         className="relative bg-cover bg-center h-96 flex flex-col items-center justify-center"
-        style={{
-          backgroundImage: "url('/bg-1.jpg')",
-        }}
+        style={{ backgroundImage: "url('/bg-1.jpg')" }}
       >
-        <h1 className="text-white  text-5xl font-bold">Our Shop</h1>
-
+        <h1 className="text-white text-5xl font-bold">Our Shop</h1>
         <div className="flex text-white mt-5">
-                <Link href="/">Home</Link>
-                <Link href="/shopd">/Shop Details</Link>
-            </div>
-        
+          <Link href="/">Home</Link>
+          <Link href="/shopd">/Shop Details</Link>
+        </div>
       </div>
-            <section className="flex">
-        <section className="mt-20 mb-12">
-            <div className="flex ml-20">
-            <div className="mr-5  text-xl">
-                sort By :  <button className="px-16 py- border border-gray-300 text-gray-500 ">Newest</button>
-            </div>
-            <div className="flex">
-             <h1 className="ml-5 mr-5 text-xl">   Show   :   </h1> <button className="px-16 py- border border-gray-300 text-gray-500">Default</button>
-            </div>
-            </div>
-            <div className="w h-2/3   mt-10 ml-14 ">
-            <div className="flex justify-around ">
-               <div className="ml-5"> <Link href={`/dynamic/${data[0].currentslug}`}><Image width={300} height={300} src={urlFor(data[0].image).url()} alt='.'/></Link>
-               <h1>{data[0].name}</h1>
-              <div className=""> <h1 className="">discount price = {data[0].price}</h1><h1 className=" text-gray-500">  Original price= {data[0].originalPrice}</h1></div>
-               </div>
 
-               <div className="ml-5">
-               <Link href={`/dynamic/${data[2].currentslug}`}>
-                <Image  width={300} height={300} src={urlFor(data[2].image).url()} alt="."/>
+      {/* Search Bar */}
+      <div className="flex justify-center mt-10">
+        <input
+          type="text"
+          placeholder="Search for products..."
+          className="w-1/2 p-2 border border-gray-300 rounded-md"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
+      </div>
+
+      {/* Wishlist Navigation */}
+      <div className="flex justify-center my-6">
+        <Link 
+          href="/wishlist" 
+          className="px-5 py-2 bg-red-500 text-white font-semibold rounded-md hover:bg-red-600 transition"
+        >
+          View Wishlist ❤️
+        </Link>
+      </div>
+
+      {/* Product List */}
+      <section className="flex justify-center mt-10 mb-12">
+        <div className="w-4/5 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {loading ? (
+            <p className="col-span-full text-center text-gray-500">Loading products...</p>
+          ) : filteredProducts.length > 0 ? (
+            filteredProducts.map((product) => (
+              <div key={product.currentslug} className="border p-4 rounded-md shadow-md">
+                <Link href={`/dynamic/${product.currentslug}`}>
+                  <Image
+                    width={300}
+                    height={300}
+                    src={urlFor(product.image).url()}
+                    alt={product.name}
+                    className="w-full h-40 object-cover"
+                  />
                 </Link>
-                <h1>{data[2].name}</h1>
-                <h1 className="text-orange-500"> discount price= {data[2].price}</h1>
-                <h1> Original price= {data[2].originalPrice}</h1>
+                <div className="flex justify-between items-center mt-2">
+                  <h1 className="text-lg font-semibold">{product.name}</h1>
+                  {/* Heart Icon */}
+                  <button
+                    onClick={() => toggleWishlist(product)}
+                    className={`text-2xl ${wishlist.some(item => item.currentslug === product.currentslug) ? "text-red-500" : "text-gray-500"}`}
+                  >
+                    {wishlist.some(item => item.currentslug === product.currentslug) ? "❤️" : "🤍"}
+                  </button>
                 </div>
-                <div className="ml-5">
-                <Link href={`/dynamic/${data[1].currentslug}`}>
-                <Image width={300} height={300} src={urlFor(data[1].image).url()} alt="."/>
-                </Link>
-                <h1> {data[1].name}</h1>
-                <div className=""><h1 className="text-orange-500">Discount price ={data[1].price} </h1> <h1 className=" text-gray-500"> originalPrice={data[2].originalPrice}</h1></div>
-                </div>
-            </div>
-            <div className="flex justify-around mt-5 ">
-                <div className="ml-5">
-                <Link href={`/dynamic/${data[3].currentslug}`}>
-                <Image width={300} height={300} src={urlFor(data[3].image).url()} alt="."/>
-                </Link>
-                <h1 className="font-bold">{data[3].name}</h1>
-                <h1 className="text-orange-500">Discount price= {data[3].price}</h1>
-                <h1>Original Price = {data[3].originalPrice}</h1>
-                </div>
-                <div className="ml-5">
-                <Link href={`/dynamic/${data[7].currentslug}`}>  
-                <Image width={300} height={300} src={urlFor(data[7].image).url()}alt="."/>
-                </Link>
-                <h1 className="font-bold">{data[7].name}</h1>
-                <div className=""><h1 className="text-orange-500">Discount Price ={data[7].price}</h1> <h1 className="">originalPrice= {data[7].originalPrice}</h1></div>
-                </div>
-                <div className="ml-5">
-                <Link href={`/dynamic/${data[5].currentslug}`}>
-                <Image width={300} height={300} src={urlFor(data[5].image).url()}alt="."/>
-                </Link>
-                <h1>{data[5].name}</h1>
-                <h1> Discount price={data[5].price}</h1>
-                <h1>Original price={data[5].originalPrice}</h1>
-                
-                
-                </div>
-            </div>
-            <div className="flex mt-5">
-                <div className="ml-5">
-                <Link href={`/dynamic/${data[8].currentslug}`}>
-                <Image width={300} height={300} src={urlFor(data[8].image).url()}alt="."/>
-                </Link>
-                <h1 className="font-bold">{data[8].name}</h1>
-                <h1 className="text-orange-500">Discount price= {data[8].price}</h1>
-                <h1> original price= {data[0].originalPrice}</h1>
-                </div>
-                <div className="ml-5">
-                <Link href={`/dynamic/${data[4].currentslug}`}>
-                <Image width={300} height={300} src={urlFor(data[4].image).url()}alt="."/>
-                </Link>
-                <h1 className="font-bold"> {data[4].name}</h1>
-                <h1 className="text-orange-500"> Discount Price= {data[4].price}</h1>
-                <h1> originalPrice={data[4].originalPrice}</h1>
-                </div>
-                <div className="ml-5">
-                <Link href={`/dynamic/${data[6].currentslug}`}>
-                <Image width={300} height={300} src={urlFor(data[6].image).url()}alt="."/>
-                </Link>
-                <h1 className="font-bold"> {data[6].name}</h1>
-                <h1 className="text-orange-500">Discount price={data[6].price}</h1>
-                <h1> Original price = {data[6].originalPrice}</h1>
-                </div>
-            </div>
-            
+                <h2 className="text-orange-500">Discount Price: ${product.price}</h2>
+                <h3 className="text-gray-500">Original Price: ${product.originalPrice}</h3>
               </div>
-            
-        </section>
-        </section>
-        </main> 
-    )
+            ))
+          ) : (
+            <p className="col-span-full text-center text-gray-500">No products found.</p>
+          )}
+        </div>
+      </section>
+    </main>
+  );
 }

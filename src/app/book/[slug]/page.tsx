@@ -93,17 +93,17 @@ export default function Dynamic({ params }: { params: Promise<{ slug: string }> 
       <div>
         <h1 className="text-3xl font-bold text-center text-orange-500 pt-5"> Chef Page   </h1>
       </div>
-      <div className="mb-8">
+      <div className="">
     <p className="text-center mt-5 text-white">Chef who worked for our restruant are highly skilled and has a good amount of experience in this field.</p>
     <p className="text-center text-white">They are capable of making delicious dishes in less time. Because of chef who are expert in making different ,our restruant</p>
     <p className="text-center text-white "> offer a diverse variety of food so the customer can get its desired food</p>
     
       </div>
-      <div><h1 className="text-3xl font-semibold underline text-orange-500 text-center "  >Introducing our chef</h1></div>
+      <div><h1 className="text-3xl font-semibold underline text-orange-500 text-center mt-3"  >Introducing our chef</h1></div>
       <div className="flex ">
       <div>
   
-        <Image className="ml-4 mb-7" width={300}height={300} src={urlFor(data.image).url()}alt="."/>
+        <Image className="ml-4 mb-24" width={300}height={300} src={urlFor(data.image).url()}alt="."/>
         </div>
         <div className="">
         <h1 className="text-white text-xl ml-10 mt-5"> name of the chef : {data.name}</h1>
