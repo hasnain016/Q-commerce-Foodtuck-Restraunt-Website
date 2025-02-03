@@ -1,26 +1,25 @@
 
 
-
 'use client'
 
 import React, { useState } from 'react'
 import Link from 'next/link'
 import { Menu, X, ShoppingCart, Search } from 'lucide-react'
-import { BiUser } from 'react-icons/bi'
+
+import { SignedIn, SignedOut, UserButton } from '@clerk/nextjs'
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
     <nav className="bg-black text-white py-4">
-      <div className="container mx-auto px-4  flex justify-between items-center">
+      <div className="container mx-auto px-4 flex justify-between items-center">
         {/* Logo */}
-
         <Link href="/">
-        <div className="text-2xl font-bold cursor-pointer">
-          <span className="text-white">Food</span>
-          <span className="text-orange-500">tuck</span>
-        </div>
+          <div className="text-2xl font-bold cursor-pointer">
+            <span className="text-white">Food</span>
+            <span className="text-orange-500">tuck</span>
+          </div>
         </Link>
 
         {/* Desktop Links */}
@@ -32,11 +31,12 @@ const Navbar = () => {
           <Link href="/about" className="hover:text-red-600">About</Link>
           <Link href="/shop" className="hover:text-red-600">Shop</Link>
           <Link href="/sign" className="hover:text-red-600">Contact</Link>
-          <Link href="/cart">Cart </Link>
+          <Link href="/cart">Cart</Link>
         </div>
 
         {/* Right Section (Search, Cart, User) */}
         <div className="hidden md:flex items-center space-x-4">
+          {/* Search Bar */}
           <div className="relative">
             <input
               type="text"
@@ -45,12 +45,22 @@ const Navbar = () => {
             />
             <Search className="w-4 h-4 text-gray-400 absolute right-3 top-1/2 transform -translate-y-1/2" />
           </div>
-         <Link href="/cart" className="text-white hover:text-yellow-300 ml-2">
+
+          {/* Cart Icon */}
+          <Link href="/cart" className="text-white hover:text-yellow-300 ml-2">
             <ShoppingCart className="w-6 h-6 cursor-pointer" />
           </Link>
-          <Link href="/signup" className="text-white hover:text-yellow-300 ml-2">
-            <BiUser className="h-6 w-6 relative" />
-          </Link>
+
+          {/* Authentication Section */}
+          <SignedOut>
+            <Link href="/sign" className="px-4 py-2 bg-blue-500 rounded">
+              Sign In
+            </Link>
+          </SignedOut>
+
+          <SignedIn>
+            <UserButton afterSignOutUrl="/sign" />
+          </SignedIn>
         </div>
 
         {/* Mobile Menu Button */}
@@ -72,6 +82,8 @@ const Navbar = () => {
             <Link href="/shop" className="block hover:text-orange-500">About</Link>
             <Link href="/shop" className="block hover:text-orange-500">Shop</Link>
             <Link href="/sign" className="block hover:text-orange-500">Contact</Link>
+
+            {/* Search Bar in Mobile */}
             <div className="mt-4 relative">
               <input
                 type="text"
@@ -80,13 +92,22 @@ const Navbar = () => {
               />
               <Search className="w-4 h-4 text-gray-400 absolute right-3 top-1/2 transform -translate-y-1/2" />
             </div>
+
+            {/* Cart & Authentication Buttons in Mobile */}
             <div className="flex space-x-4 mt-3">
               <Link href="/cart" className="text-white hover:text-yellow-300">
                 <ShoppingCart className="w-6 h-6 cursor-pointer" />
               </Link>
-              <Link href="/signup" className="text-white hover:text-yellow-300">
-                <BiUser className="h-6 w-6 relative" />
-              </Link>
+
+              <SignedOut>
+                <Link href="/sign-in" className="px-4 py-2 bg-blue-500 rounded">
+                  Sign In
+                </Link>
+              </SignedOut>
+
+              <SignedIn>
+                <UserButton afterSignOutUrl="/sign-in" />
+              </SignedIn>
             </div>
           </div>
         </div>
