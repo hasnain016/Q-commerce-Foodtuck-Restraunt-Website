@@ -108,11 +108,11 @@ export default function Dynamic({ params }: { params: Promise<{ slug: string }> 
         <div className="">
         <h1 className="text-white text-xl ml-10 mt-5"> name of the chef : {data.name}</h1>
         <h1 className="text-white ml-10 pb-4"> Working as {data.position} in this foodTruck . </h1>
-        <h1 className="text-orange-500 text-xl font-semibold ml-32 mt-3 underline ">Short information about chef .</h1>
-        <p className="text-white ml-10 mt-4">This is one of our chef working in foodTruck, with a good experience of making food in this restruant
+        <h1 className="text-orange-500 text-xl font-semibold md:ml-32 mt-3 underline ">Short information about chef .</h1>
+        <p className="text-white md:ml-10 mt-4">This is one of our chef working in foodTruck, with a good experience of making food in this restruant
            </p>
-           <p className="text-white ml-10 "> This chef is expert in making {data.specialty} and making {data.specialty} in big events like marriages and family gathering. </p>
-           <p className="text-white ml-10"> The chef  is {data.description} , </p>
+           <p className="text-white md:ml-10 "> This chef is expert in making {data.specialty} and making {data.specialty} in big events like marriages and family gathering. </p>
+           <p className="text-white md:ml-10"> The chef  is {data.description} , </p>
       </div>
       
     </div>
